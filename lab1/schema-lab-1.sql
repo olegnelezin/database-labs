@@ -1,11 +1,11 @@
 create table country (
-	country_id integer not null,
+	country_id serial not null,
 	name varchar(100) not null,
 	constraint pk_country primary key (country_id)
 );
 
 create table owner (
-	owner_id integer not null,
+	owner_id serial not null,
 	name varchar(100) not null,
 	surname varchar(200) not null,
 	patronymic varchar(200),
@@ -13,7 +13,7 @@ create table owner (
 );
 
 create table club (
-	club_id integer not null,
+	club_id serial not null,
 	country_id integer not null,
 	name varchar(100) not null,
 	constraint pk_club primary key (club_id)
@@ -33,7 +33,7 @@ alter table owner_club
     add constraint fk_owner_club_on_club foreign key (club_id) references club (club_id);
 
 create table training_base (
-	base_id integer not null,
+	base_id serial not null,
 	name varchar(100) not null,
 	address varchar(200) not null,
 	filed_count integer not null,
@@ -44,7 +44,7 @@ alter table training_base
     add constraint training_base_unique_address unique (address);
 
 create table camp (
-	camp_id integer not null,
+	camp_id serial not null,
 	training_base_id integer not null,
 	start_date date not null,
 	end_date date not null,
@@ -57,7 +57,7 @@ alter table camp
     add constraint fk_camp_on_club foreign key (club_id) references club (club_id);
 
 create table team (
-	team_id integer not null,
+	team_id serial not null,
 	name varchar(100) not null,
 	rating double precision not null,
 	club_id integer not null,
@@ -76,7 +76,7 @@ create table contract (
 );
 
 create table player (
-	player_id integer not null,
+	player_id serial not null,
 	name varchar(100) not null,
 	surname varchar(200) not null,
 	patronymic varchar(200),
@@ -93,13 +93,13 @@ alter table player
     add constraint fk_player_on_team foreign key (team_id) references team (team_id);
 
 create table position (
-	position_id integer not null,
+	position_id serial not null,
 	name varchar(30) not null,
 	constraint pk_position_id primary key (position_id)
 );
 
 create table personal (
-	personal_id integer not null,
+	personal_id serial not null,
 	name varchar(100) not null,
 	surname varchar(200) not null,
 	patronymic varchar(200),
@@ -119,7 +119,7 @@ alter table personal
     add constraint personal_check_gender check (gender = 'm' or gender = 'w');
 
 create table competition (
-	comp_id integer not null,
+	comp_id serial not null,
 	start_date date not null,
 	end_date date not null,
 	name varchar(100) not null,
@@ -129,7 +129,7 @@ create table competition (
 );
 
 create table stadium (
-	stadium_id integer not null,
+	stadium_id serial not null,
 	name varchar(100) not null,
 	address varchar(100) not null,
 	coverage_type varchar(40) not null,
@@ -143,7 +143,7 @@ alter table stadium
     add constraint stadium_check_seats_count check (seats_count > 0 and seats_count < 1000000);
 
 create table match_type (
-	match_type_id integer not null,
+	match_type_id serial not null,
 	name varchar(30) not null,
 	constraint pk_match_type_id primary key (match_type_id)
 );
@@ -152,13 +152,13 @@ alter table match_type
     add constraint match_type_unique_name unique (name);
 
 create table season (
-	season_id integer not null,
+	season_id serial not null,
 	name varchar(100) not null,
 	constraint pk_season_id primary key (season_id)
 );
 
 create table match (
-	match_number integer not null,
+	match_number serial not null,
 	match_date date not null,
 	match_time time not null,
 	season_id integer not null,
